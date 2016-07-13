@@ -1,0 +1,17 @@
+{
+  "rules": {
+    "users": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        ".write": "auth != null && auth.uid === $uid",
+        "workouts": {
+          ".indexOn": ["day"],
+          "$id": {
+            ".validate": "newData.hasChildren(['type', 'day', 'durationMin']) && newData.child('durationMin').isNumber() && newData.child('durationMin').val() > 0 && newData.child('durationMin').val() <= 1440 && newData.child('day').val().matches(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/)"
+          }
+        }
+      }
+    },
+    "ids": { ".read": false, ".write": false }
+  }
+}
